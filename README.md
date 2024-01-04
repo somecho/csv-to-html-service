@@ -21,3 +21,14 @@ Which looks like this in html:
 ```html
 <table><thead><tr><th>name</th><th>age</th></tr></thead><tbody><tr><td>mickey</td><td>99</td></tr></tbody></table>
 ```
+
+## Parameters
+
+There are two parameters you can pass as URL query parameters. 
+
+| Param | Description | Example |
+| - | - | - |
+| `delimiter` | the delimiter used for parsing the csv `[default: ,]` | `?delimiter=%20` (URL encoded space ) |
+| `hasHeaders` | when true, the first row is used as the table header `[default: true]` | `?hasHeaders=false` |
+
+
