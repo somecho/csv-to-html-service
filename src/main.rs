@@ -25,7 +25,6 @@ async fn convert_csv_html(request: HttpRequest, body: String) -> Result<HttpResp
         Some(d) => d.as_bytes()[0],
         None => b',',
     };
-
     let html = csv_to_html::convert(&body, &delimiter, &csv_has_headers);
     let error = ErrorUnsupportedMediaType("Content-Type must be set to 'text/csv'");
     match request.headers().get("content-type") {
@@ -50,7 +49,9 @@ async fn index() -> Result<HttpResponse, Error> {
     .await
     .unwrap();
     let html = markdown_to_html(&body, &Options::default());
-    Ok(HttpResponse::Ok().body(html))
+    Ok(HttpResponse::Ok()
+        .content_type(ContentType::html())
+        .body(html))
 }
 
 #[actix_web::main]
