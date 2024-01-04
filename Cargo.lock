@@ -512,11 +512,13 @@ dependencies = [
 
 [[package]]
 name = "csv-to-html-service"
-version = "0.1.0"
+version = "0.2.2"
 dependencies = [
  "actix-web",
  "csv-to-html",
  "env_logger",
+ "serde",
+ "serde_derive",
 ]
 
 [[package]]
