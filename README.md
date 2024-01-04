@@ -10,14 +10,14 @@ try it out.
 Try it out with curl:
 
 ```sh
-curl -X POST -L https://csvhtml.soch.cc -H "Content-Type: text/csv" -d 'name,age\nmickey,99'
+curl -X POST -L https://csvhtml.soch.cc -H "Content-Type: text/csv" -d $'name,age\nmickey,99'
 ```
 
 This returns the following table:
 
-<table><thead><tr><th>name</th><th>age\nmickey</th><th>99</th></tr></thead><tbody></tbody></table>
+<table><thead><tr><th>name</th><th>age</th></tr></thead><tbody><tr><td>mickey</td><td>99</td></tr></tbody></table>
 
 Which looks like this in html:
 ```html
-<table><thead><tr><th>name</th><th>age\nmickey</th><th>99</th></tr></thead><tbody></tbody></table>
+<table><thead><tr><th>name</th><th>age</th></tr></thead><tbody><tr><td>mickey</td><td>99</td></tr></tbody></table>
 ```
