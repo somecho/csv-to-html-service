@@ -1,13 +1,15 @@
 [package]
 name = "csv-to-html-service"
-version = "0.2.2"
+version = "0.3.3"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 actix-web = "4.4.1"
+comrak = "0.20.0"
 csv-to-html = "0.5.10"
 env_logger = "0.10.1"
+reqwest = "0.11.3"
 serde = "1.0.194"
 serde_derive = "1.0.194"

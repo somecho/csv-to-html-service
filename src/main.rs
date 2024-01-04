@@ -1,6 +1,9 @@
 use actix_web::error::{Error, ErrorUnsupportedMediaType};
 use actix_web::middleware::Logger;
-use actix_web::{http::header::ContentType, post, web, App, HttpRequest, HttpResponse, HttpServer};
+use actix_web::{
+    get, http::header::ContentType, post, web, App, HttpRequest, HttpResponse, HttpServer,
+};
+use comrak::{markdown_to_html, Options};
 use env_logger::Env;
 use serde_derive::Deserialize;
 
@@ -36,11 +39,30 @@ async fn convert_csv_html(request: HttpRequest, body: String) -> Result<HttpResp
     }
 }
 
+#[get("/")]
+async fn index() -> Result<HttpResponse, Error> {
+    let body = reqwest::get(
+        "https://raw.githubusercontent.com/somecho/csv-to-html-service/main/README.md",
+    )
+    .await
+    .unwrap()
+    .text()
+    .await
+    .unwrap();
+    let html = markdown_to_html(&body, &Options::default());
+    Ok(HttpResponse::Ok().body(html))
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(Env::default().default_filter_or("info"));
-    HttpServer::new(|| App::new().wrap(Logger::default()).service(convert_csv_html))
-        .bind(("0.0.0.0", 8080))?
-        .run()
-        .await
+    HttpServer::new(|| {
+        App::new()
+            .wrap(Logger::default())
+            .service(convert_csv_html)
+            .service(index)
+    })
+    .bind(("0.0.0.0", 8080))?
+    .run()
+    .await
 }
